@@ -1,1 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>5下 英文 進評5 說話錄音</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0 auto;
+            max-width: 800px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.8;
+        }
+        h1 { text-align: center; color: #2c3e50; }
+        h2 { color: #2980b9; border-bottom: 2px solid #2980b9; padding-bottom: 5px; }
+        h3 { color: #e67e22; }
+        
+        /* 單字點擊效果 */
+        .word {
+            cursor: pointer;
+            padding: 2px 4px;
+            border-radius: 4px;
+            transition: background-color 0.2s, color 0.2s;
+            display: inline-block;
+        }
+        .word:hover {
+            background-color: #ffeaa7;
+            color: #d35400;
+        }
 
+        /* A部分 排版 */
+        .part-a {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            font-size: 1.3rem;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        /* B部分 排版 */
+        .part-b {
+            font-size: 1.4rem;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .instruction {
+            text-align: center;
+            color: #7f8c8d;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>5下 英文 進評5 說話錄音</h1>
+    <p class="instruction">💡 提示：點擊任何英文單字即可聆聽發音！</p>
+
+    <h2>A部分：朗讀詞語 30% @2%</h2>
+    <div class="part-a" id="part-a-container">
+        <div class="vocab">1. mandarin tree</div>
+        <div class="vocab">2. parade</div>
+        <div class="vocab">3. red paper</div>
+        <div class="vocab">4. earrings</div>
+        <div class="vocab">5. gold</div>
+        <div class="vocab">6. curly</div>
+        <div class="vocab">7. actor</div>
+        <div class="vocab">8. lawyer</div>
+        <div class="vocab">9. pilot</div>
+        <div class="vocab">10. cheerful</div>
+        <div class="vocab">11. gentle</div>
+        <div class="vocab">12. brave</div>
+        <div class="vocab">13. humble</div>
+        <div class="vocab">14. athlete</div>
+        <div class="vocab">15. silver</div>
+    </div>
+
+    <h2>B部分：朗讀短文 10%</h2>
+    <h3>My favourite sport</h3> <div class="part-b" id="reading-text">
+        My favourite sport is basketball. I have been a basketball player for five years. 
+        When I was in Primary one, I was very short and weak. 
+        I wanted to become healthier, so I joined the school’s basketball team. I have become stronger since then. 
+        I have also learnt how to work as a team with other schoolmates. 
+        We won the inter-school basketball competition last year.
+    </div>
+
+    <script>
+        // 發音功能
+        function speakWord(word) {
+            // 過濾掉標點符號，只保留英文字母 (例如把 "sport." 變成 "sport")
+            let cleanWord = word.replace(/[^a-zA-Z\s-]/g, "").trim().toLowerCase();
+            if (!cleanWord) return;
+
+            // ==========================================
+            // 【選項 1】使用瀏覽器內建語音 (預設，不需額外檔案)
+            // ==========================================
+            let utterance = new SpeechSynthesisUtterance(cleanWord);
+            utterance.lang = 'en-US'; // 美式發音，若要英式可改為 'en-GB'
+            utterance.rate = 0.9;     // 語速稍微放慢，適合學生
+            window.speechSynthesis.speak(utterance);
+
+            // ==========================================
+            // 【選項 2】使用你自己下載的 MP3 檔案
+            // 若要使用你的 MP3，請把上面 5 行刪除或註解掉，並把下面 2 行開頭的「//」刪除。
+            // 你的 MP3 檔名必須與單字相同 (例如: basketball.mp3, mandarin tree.mp3)，並放在 mp3 資料夾中。
+            // ==========================================
+            // let audio = new Audio('mp3/' + cleanWord + '.mp3');
+            // audio.play().catch(e => alert("找不到對應的 MP3 檔案: " + cleanWord + ".mp3"));
+        }
+
+        // 自動為 A部分 的單字加上點擊功能
+        document.querySelectorAll('.vocab').forEach(el => {
+            let originalText = el.innerText;
+            // 分離題號和英文單字
+            let numberPart = originalText.match(/^[0-9]+\.\s*/)[0];
+            let englishPart = originalText.replace(numberPart, '');
+            
+            // 重新包裝 HTML
+            el.innerHTML = `${numberPart}<span class="word" onclick="speakWord('${englishPart}')">${englishPart}</span>`;
+        });
+
+        // 自動為 B部分 的短文每個單字獨立加上點擊功能
+        const textContainer = document.getElementById('reading-text');
+        // 用空格將句子拆解成陣列
+        const words = textContainer.innerText.split(/\s+/);
+        textContainer.innerHTML = ''; // 清空原本的純文字
+
+        words.forEach(word => {
+            if (word.trim() === '') return;
+            let span = document.createElement('span');
+            span.className = 'word';
+            span.innerText = word + ' '; // 保留空格讓句子排版正確
+            
+            // 點擊時傳送該單字給發音函數
+            span.onclick = () => speakWord(word);
+            textContainer.appendChild(span);
+        });
+    </script>
+</body>
+</html>
