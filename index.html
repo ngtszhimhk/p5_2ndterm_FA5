@@ -1,149 +1,271 @@
 <!DOCTYPE html>
-<html lang="zh-HK">
+<html lang="zh-Hant">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>5下 英文 進評5 說話錄音</title>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0 auto;
-            max-width: 800px;
-            padding: 20px;
-            background-color: #f9f9f9;
-            color: #333;
-            line-height: 1.8;
+        :root {
+            --primary-color: #4a90e2;
+            --hover-color: #e3f2fd;
+            --text-color: #333;
+            --bg-color: #f8f9fa;
         }
-        h1 { text-align: center; color: #2c3e50; }
-        h2 { color: #2980b9; border-bottom: 2px solid #2980b9; padding-bottom: 5px; }
-        h3 { color: #e67e22; }
-        
-        /* 單字點擊效果 */
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif, "Microsoft JhengHei";
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.8;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            border-bottom: 2px solid #eaeaea;
+            padding-bottom: 15px;
+            margin-bottom: 30px;
+            font-size: 24px;
+        }
+
+        h2 {
+            color: var(--primary-color);
+            font-size: 20px;
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-color);
+            padding-left: 10px;
+        }
+
+        /* 點擊單詞的樣式 */
         .word {
             cursor: pointer;
-            padding: 2px 4px;
-            border-radius: 4px;
-            transition: background-color 0.2s, color 0.2s;
             display: inline-block;
+            padding: 2px 6px;
+            margin: 2px 1px;
+            border-radius: 4px;
+            transition: all 0.2s ease;
+            user-select: none;
         }
+
         .word:hover {
-            background-color: #ffeaa7;
-            color: #d35400;
+            background-color: var(--hover-color);
+            color: #0d47a1;
+            transform: translateY(-1px);
         }
 
-        /* A部分 排版 */
-        .part-a {
+        .word:active {
+            background-color: #bbdefb;
+        }
+
+        /* A部分 詞語網格佈局 */
+        .word-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
             gap: 15px;
-            font-size: 1.3rem;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        
-        /* B部分 排版 */
-        .part-b {
-            font-size: 1.4rem;
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            margin-top: 20px;
         }
 
-        .instruction {
+        .grid-item {
+            background: #fdfdfd;
+            border: 1px solid #eee;
+            padding: 10px 15px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .word-num {
+            font-weight: bold;
+            color: #888;
+            margin-right: 10px;
+            min-width: 25px;
+        }
+
+        /* B部分 短文樣式 */
+        .passage-box {
+            background: #fafafa;
+            border: 1px dashed #ccc;
+            padding: 25px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-size: 18px;
+        }
+
+        .passage-title {
             text-align: center;
-            color: #7f8c8d;
-            font-size: 1rem;
+            font-weight: bold;
             margin-bottom: 20px;
+            font-size: 20px;
+        }
+
+        .punctuation {
+            margin-right: 4px;
+            color: #555;
+        }
+
+        /* 提示字眼 */
+        .tips {
+            font-size: 14px;
+            color: #666;
+            background: #fff9db;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            border-left: 4px solid #fcc419;
         }
     </style>
 </head>
 <body>
 
+<div class="container">
     <h1>5下 英文 進評5 說話錄音</h1>
-    <p class="instruction">💡 提示：點擊任何英文單字即可聆聽發音！</p>
+    
+    <div class="tips">💡 💡 提示：點擊下方任何英文單詞或片語，即可播放對應的發音。</div>
 
     <h2>A部分：朗讀詞語 30% @2%</h2>
-    <div class="part-a" id="part-a-container">
-        <div class="vocab">1. mandarin tree</div>
-        <div class="vocab">2. parade</div>
-        <div class="vocab">3. red paper</div>
-        <div class="vocab">4. earrings</div>
-        <div class="vocab">5. gold</div>
-        <div class="vocab">6. curly</div>
-        <div class="vocab">7. actor</div>
-        <div class="vocab">8. lawyer</div>
-        <div class="vocab">9. pilot</div>
-        <div class="vocab">10. cheerful</div>
-        <div class="vocab">11. gentle</div>
-        <div class="vocab">12. brave</div>
-        <div class="vocab">13. humble</div>
-        <div class="vocab">14. athlete</div>
-        <div class="vocab">15. silver</div>
+    <div class="word-grid">
+        <div class="grid-item"><span class="word-num">1.</span><span class="word" data-file="mandarin tree">mandarin tree</span></div>
+        <div class="grid-item"><span class="word-num">2.</span><span class="word" data-file="parade">parade</span></div>
+        <div class="grid-item"><span class="word-num">3.</span><span class="word" data-file="red paper">red paper</span></div>
+        <div class="grid-item"><span class="word-num">4.</span><span class="word" data-file="earrings">earrings</span></div>
+        <div class="grid-item"><span class="word-num">5.</span><span class="word" data-file="gold">gold</span></div>
+        <div class="grid-item"><span class="word-num">6.</span><span class="word" data-file="curly">curly</span></div>
+        <div class="grid-item"><span class="word-num">7.</span><span class="word" data-file="actor">actor</span></div>
+        <div class="grid-item"><span class="word-num">8.</span><span class="word" data-file="lawyer">lawyer</span></div>
+        <div class="grid-item"><span class="word-num">9.</span><span class="word" data-file="pilot">pilot</span></div>
+        <div class="grid-item"><span class="word-num">10.</span><span class="word" data-file="cheerful">cheerful</span></div>
+        <div class="grid-item"><span class="word-num">11.</span><span class="word" data-file="gentle">gentle</span></div>
+        <div class="grid-item"><span class="word-num">12.</span><span class="word" data-file="brave">brave</span></div>
+        <div class="grid-item"><span class="word-num">13.</span><span class="word" data-file="humble">humble</span></div>
+        <div class="grid-item"><span class="word-num">14.</span><span class="word" data-file="athlete">athlete</span></div>
+        <div class="grid-item"><span class="word-num">15.</span><span class="word" data-file="silver">silver</span></div>
     </div>
 
     <h2>B部分：朗讀短文 10%</h2>
-    <h3>My favourite sport</h3> <div class="part-b" id="reading-text">
-        My favourite sport is basketball. I have been a basketball player for five years. 
-        When I was in Primary one, I was very short and weak. 
-        I wanted to become healthier, so I joined the school’s basketball team. I have become stronger since then. 
-        I have also learnt how to work as a team with other schoolmates. 
-        We won the inter-school basketball competition last year.
+    <div class="passage-box">
+        <div class="passage-title">
+            <span class="word" data-file="My">My</span>
+            <span class="word" data-file="favourite">favourite</span>
+            <span class="word" data-file="sport">sport</span>
+        </div>
+        <p>
+            <span class="word" data-file="My">My</span>
+            <span class="word" data-file="favourite">favourite</span>
+            <span class="word" data-file="sport">sport</span>
+            <span class="word" data-file="is">is</span>
+            <span class="word" data-file="basketball">basketball</span><span class="punctuation">.</span>
+            
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="have">have</span>
+            <span class="word" data-file="been">been</span>
+            <span class="word" data-file="a">a</span>
+            <span class="word" data-file="basketball">basketball</span>
+            <span class="word" data-file="player">player</span>
+            <span class="word" data-file="for">for</span>
+            <span class="word" data-file="five">five</span>
+            <span class="word" data-file="years">years</span><span class="punctuation">.</span>
+        </p>
+        <p>
+            <span class="word" data-file="When">When</span>
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="was">was</span>
+            <span class="word" data-file="in">in</span>
+            <span class="word" data-file="Primary">Primary</span>
+            <span class="word" data-file="one">one</span><span class="punctuation">,</span>
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="was">was</span>
+            <span class="word" data-file="very">very</span>
+            <span class="word" data-file="short">short</span>
+            <span class="word" data-file="and">and</span>
+            <span class="word" data-file="weak">weak</span><span class="punctuation">.</span>
+        </p>
+        <p>
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="wanted">wanted</span>
+            <span class="word" data-file="to">to</span>
+            <span class="word" data-file="become">become</span>
+            <span class="word" data-file="healthier">healthier</span><span class="punctuation">,</span>
+            <span class="word" data-file="so">so</span>
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="joined">joined</span>
+            <span class="word" data-file="the">the</span>
+            <span class="word" data-file="school's">school’s</span>
+            <span class="word" data-file="basketball">basketball</span>
+            <span class="word" data-file="team">team</span><span class="punctuation">.</span>
+            
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="have">have</span>
+            <span class="word" data-file="become">become</span>
+            <span class="word" data-file="stronger">stronger</span>
+            <span class="word" data-file="since">since</span>
+            <span class="word" data-file="then">then</span><span class="punctuation">.</span>
+        </p>
+        <p>
+            <span class="word" data-file="I">I</span>
+            <span class="word" data-file="have">have</span>
+            <span class="word" data-file="also">also</span>
+            <span class="word" data-file="learnt">learnt</span>
+            <span class="word" data-file="how">how</span>
+            <span class="word" data-file="to">to</span>
+            <span class="word" data-file="work">work</span>
+            <span class="word" data-file="as">as</span>
+            <span class="word" data-file="a">a</span>
+            <span class="word" data-file="team">team</span>
+            <span class="word" data-file="with">with</span>
+            <span class="word" data-file="other">other</span>
+            <span class="word" data-file="schoolmates">schoolmates</span><span class="punctuation">.</span>
+        </p>
+        <p>
+            <span class="word" data-file="We">We</span>
+            <span class="word" data-file="won">won</span>
+            <span class="word" data-file="the">the</span>
+            <span class="word" data-file="inter-school">inter-school</span>
+            <span class="word" data-file="basketball">basketball</span>
+            <span class="word" data-file="competition">competition</span>
+            <span class="word" data-file="last">last</span>
+            <span class="word" data-file="year">year</span><span class="punctuation">.</span>
+        </p>
     </div>
+</div>
 
-    <script>
-        // 發音功能
-        function speakWord(word) {
-            // 過濾掉標點符號，只保留英文字母 (例如把 "sport." 變成 "sport")
-            let cleanWord = word.replace(/[^a-zA-Z\s-]/g, "").trim().toLowerCase();
-            if (!cleanWord) return;
+<script>
+    // 全域變數用於追蹤當前播放的音訊，避免重疊播放
+    let currentAudio = null;
 
-            // ==========================================
-            // 【選項 1】使用瀏覽器內建語音 (預設，不需額外檔案)
-            // ==========================================
-            let utterance = new SpeechSynthesisUtterance(cleanWord);
-            utterance.lang = 'en-US'; // 美式發音，若要英式可改為 'en-GB'
-            utterance.rate = 0.9;     // 語速稍微放慢，適合學生
-            window.speechSynthesis.speak(utterance);
+    // 為所有單詞綁定點擊事件
+    document.querySelectorAll('.word').forEach(word => {
+        word.addEventListener('click', function() {
+            const fileName = this.getAttribute('data-file');
+            if (!fileName) return;
 
-            // ==========================================
-            // 【選項 2】使用你自己下載的 MP3 檔案
-            // 若要使用你的 MP3，請把上面 5 行刪除或註解掉，並把下面 2 行開頭的「//」刪除。
-            // 你的 MP3 檔名必須與單字相同 (例如: basketball.mp3, mandarin tree.mp3)，並放在 mp3 資料夾中。
-            // ==========================================
-            // let audio = new Audio('mp3/' + cleanWord + '.mp3');
-            // audio.play().catch(e => alert("找不到對應的 MP3 檔案: " + cleanWord + ".mp3"));
-        }
+            // 1. 如果有正在播放的音訊，先將其停止並重設
+            if (currentAudio) {
+                currentAudio.pause();
+                currentAudio.currentTime = 0;
+            }
 
-        // 自動為 A部分 的單字加上點擊功能
-        document.querySelectorAll('.vocab').forEach(el => {
-            let originalText = el.innerText;
-            // 分離題號和英文單字
-            let numberPart = originalText.match(/^[0-9]+\.\s*/)[0];
-            let englishPart = originalText.replace(numberPart, '');
-            
-            // 重新包裝 HTML
-            el.innerHTML = `${numberPart}<span class="word" onclick="speakWord('${englishPart}')">${englishPart}</span>`;
+            // 2. 建立新音訊物件（路徑指引至 audio 資料夾，並將空格等特殊字元進行網址編碼）
+            const audioPath = `audio/${encodeURIComponent(fileName)}.mp3`;
+            currentAudio = new Audio(audioPath);
+
+            // 3. 播放音訊
+            currentAudio.play().catch(error => {
+                console.error(`無法播放音檔: ${audioPath}。請檢查檔案是否存在於 audio 資料夾中，且檔名完全相符。`, error);
+            });
         });
+    });
+</script>
 
-        // 自動為 B部分 的短文每個單字獨立加上點擊功能
-        const textContainer = document.getElementById('reading-text');
-        // 用空格將句子拆解成陣列
-        const words = textContainer.innerText.split(/\s+/);
-        textContainer.innerHTML = ''; // 清空原本的純文字
-
-        words.forEach(word => {
-            if (word.trim() === '') return;
-            let span = document.createElement('span');
-            span.className = 'word';
-            span.innerText = word + ' '; // 保留空格讓句子排版正確
-            
-            // 點擊時傳送該單字給發音函數
-            span.onclick = () => speakWord(word);
-            textContainer.appendChild(span);
-        });
-    </script>
 </body>
 </html>
